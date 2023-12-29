@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import ContentLoader from "react-content-loader";
-import axios from "axios";
+import ContentLoader from "react-content-loader"; 
 
 import { Categories } from "../components/Categories";
 import { Sort } from "../components/Sort";
@@ -10,47 +9,33 @@ import { PizzaBlock } from "../components/PizzaBlock";
 import { AppContext } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategory } from "../redux/slices/filterSlice";
+import { fetchPizzas } from "../redux/slices/pizzasSlice"; 
 
-export const FilterContext = React.createContext();
-
-export default function Home() { 
-   const activeCategory = useSelector(state => state.filterSlice.activeCategory); 
-   const tagIdx = useSelector(state => state.filterSlice.tagIdx) 
+export default function Home() {
+   const activeCategory = useSelector((state) => state.filterSlice.activeCategory);
+   const {pizzas, status} = useSelector((state) => state.pizzasSlice);
+   const tagIdx = useSelector((state) => state.filterSlice.tagIdx);
    const dispatch = useDispatch(); 
 
-   const [pizzas, setPizzas] = React.useState([]);
-   const [isLoading, setIsLoading] = React.useState(true); 
-
    const { searchValue, currPage } = React.useContext(AppContext);
-   
-   React.useEffect( () => {
-      setIsLoading(true);
-      // "api/pizzas"https://654ce0fc77200d6ba8599ac9.mockapi.io/pizzas?
-      (async () => {
-         await axios
-         .get(
-            `https://654ce0fc77200d6ba8599ac9.mockapi.io/pizzas?page=${currPage}&limit=8&sortBy=${tagIdx.sortProp}&order=desc${
-               activeCategory ? `&category=${activeCategory}` : ``
-            }`
-         )
-         .then((res) => {
-            setPizzas(res.data);
-            setIsLoading(false);
-         })
-         .catch((err) => console.error(err));
-      })()
-      
-   }, [activeCategory, tagIdx, currPage]);
+
+   React.useEffect(() => { 
+      dispatch(fetchPizzas({
+         activeCategory,
+         tagIdx,
+         currPage
+      })); 
+   }, [activeCategory, tagIdx, currPage, dispatch]); 
 
    return (
-      <div className="container"> 
-            <div className="content__top">
-               <Categories setActiveCategory={(id) => dispatch(setActiveCategory(id))} activeCategory={activeCategory} />
-               <Sort />
-            </div> 
+      <div className="container">
+         <div className="content__top">
+            <Categories setActiveCategory={(id) => dispatch(setActiveCategory(id))} activeCategory={activeCategory} />
+            <Sort />
+         </div>
          <h2 className="content__title">Усі піци</h2>
          <div className="content__items">
-            {isLoading
+            {status === "loading"
                ? [...new Array(8)].map((i, idx) => (
                     <ContentLoader
                        key={idx}
