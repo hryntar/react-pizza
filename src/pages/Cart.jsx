@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import CartEmpty from "../components/CartEmpty";
 
 import { useSelector, useDispatch } from "react-redux";
-import { clearItems } from "../redux/slices/cartSlice";
+import { clearItems, selectCart } from "../redux/slices/cartSlice";
 
 export default function Cart() {
    const dispatch = useDispatch();
-   const { items, totalPrice } = useSelector((state) => state.cartSlice);
+   const { items, totalPrice } = useSelector(selectCart);
 
    return (
       <div className="container container--cart">
