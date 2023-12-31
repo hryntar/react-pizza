@@ -1,31 +1,31 @@
-/* eslint-disable react/prop-types */
-import React from "react";
-import ContentLoader from "react-content-loader"; 
-
-import { Categories } from "../components/Categories";
-import { Sort } from "../components/Sort";
-import { PizzaBlock } from "../components/PizzaBlock";
-
+/* eslint-disable react/prop-types */ 
+import { useDispatch, useSelector } from "react-redux"; 
 import { AppContext } from "../App";
-import { useDispatch, useSelector } from "react-redux";
+import { Categories } from "../components/Categories";
+import ContentLoader from "react-content-loader";
+import { PizzaBlock } from "../components/PizzaBlock";
+import React from "react";
+import { Sort } from "../components/Sort";
+import { fetchPizzas } from "../redux/slices/pizzasSlice";
 import { setActiveCategory } from "../redux/slices/filterSlice";
-import { fetchPizzas } from "../redux/slices/pizzasSlice"; 
 
 export default function Home() {
    const activeCategory = useSelector((state) => state.filterSlice.activeCategory);
-   const {pizzas, status} = useSelector((state) => state.pizzasSlice);
+   const { pizzas, status } = useSelector((state) => state.pizzasSlice);
    const tagIdx = useSelector((state) => state.filterSlice.tagIdx);
-   const dispatch = useDispatch(); 
+   const dispatch = useDispatch();
 
    const { searchValue, currPage } = React.useContext(AppContext);
 
-   React.useEffect(() => { 
-      dispatch(fetchPizzas({
-         activeCategory,
-         tagIdx,
-         currPage
-      })); 
-   }, [activeCategory, tagIdx, currPage, dispatch]); 
+   React.useEffect(() => {
+      dispatch(
+         fetchPizzas({
+            activeCategory,
+            tagIdx,
+            currPage,
+         })
+      );
+   }, [activeCategory, tagIdx, currPage, dispatch]);
 
    return (
       <div className="container">

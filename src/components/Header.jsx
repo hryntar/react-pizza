@@ -1,21 +1,18 @@
 // import React from "react";
 import { Link } from "react-router-dom";
-
 import Search from "./Search/Search";
-
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
 
 export const Header = () => {
-
-   const {totalPrice, items} = useSelector(selectCart);
+   const { totalPrice, items } = useSelector(selectCart);
 
    const itemsCount = items.reduce((sum, item) => sum + item.count, 0);
 
    return (
       <div className="header">
          <div className="container">
-            <Link to='/' className="header__logo">
+            <Link to="/" className="header__logo">
                <img width={38} src="/img/pizza-logo.svg" alt="Pizza logo" />
                <div>
                   <h1>React Pizza</h1>
