@@ -1,9 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import axios from "axios"; 
+import axios from "axios";
 
-export const Categories = ({activeCategory, setActiveCategory}) => {
+type Props = {
+   activeCategory: number,
+   setActiveCategory:  React.Dispatch<React.SetStateAction<number>>
+}
+
+export const Categories = ({activeCategory, setActiveCategory}: Props) => {
    const [categories, setCategories] = React.useState([]); 
 
    React.useEffect(() => {

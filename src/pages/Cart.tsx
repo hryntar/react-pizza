@@ -39,7 +39,7 @@ export default function Cart() {
                            strokeLinejoin="round"
                         />
                      </svg>
-                     Корзина
+                     Кошик
                   </h2>
                   <div onClick={() => dispatch(clearItems())} className="cart__clear">
                      <svg width={20} height={20} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -66,11 +66,11 @@ export default function Cart() {
                            strokeLinejoin="round"
                         />
                      </svg>
-                     <span>Очистити корзину</span>
+                     <span>Очистити кошик</span>
                   </div>
                </div>
                <div className="content__items-cart">
-                  {items.map((item) => (
+                  {items.map((item: {id: number}) => (
                      <CartItem {...item} key={item.id} />
                   ))}
                </div>

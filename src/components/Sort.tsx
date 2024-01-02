@@ -2,19 +2,20 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTagIdx } from "../redux/slices/filterSlice";
+import { RootState } from "../redux/store";
 
 export const Sort = () => { 
    const [popupOpen, setPopupOpen] = React.useState(false);
    const tags = [{name: "популярністю", sortProp: "rating"},{name: "ціною", sortProp: "price"}, {name: "алфавітом", sortProp: "title"}]; 
 
-   const tagIdx = useSelector(state => state.filterSlice.tagIdx);
+   const tagIdx = useSelector((state: RootState) => state.filterSlice.tagIdx);
    const dispatch = useDispatch();
 
-   const sortRef = React.useRef();
+   const sortRef = React.useRef<HTMLDivElement>(null);
    React.useEffect(() => {
 
-      const handleClickOutside = (event) => {
-         if (!(event.composedPath().includes(sortRef.current))) {
+      const handleClickOutside = (event: Event) => {
+         if (!(event.composedPath().includes(sortRef.current!))) {
             setPopupOpen(false);
          } 
       }
@@ -27,7 +28,7 @@ export const Sort = () => {
    }, [])
 
    
-   function handleTagClick(idx) { 
+   function handleTagClick(idx: {}) { 
       dispatch(setTagIdx(idx));
       setPopupOpen(false);
    } 

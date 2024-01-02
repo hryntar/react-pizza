@@ -2,7 +2,7 @@ import React from "react";
 
 import { AppContext } from "../../App";
 
-import styles from "./Search.module.scss";
+import styles from "./Search.module.scss" ;
 
 export default function Search() {
 

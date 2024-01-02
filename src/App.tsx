@@ -2,25 +2,25 @@ import React from "react";
 
 import { Routes, Route } from "react-router-dom";
 
-import { Header } from "./components/Header"; 
+import { Header } from "./components/Header";
 import Home from "./pages/Home";
-import Cart from "./pages/Cart"; 
+import Cart from "./pages/Cart";
 import FullPizza from "./pages/FullPizza";
 
-import "./scss/app.scss";
+import "./scss/app.scss"; 
 
-export const AppContext = React.createContext(); 
+export const AppContext = React.createContext({});
 
-function App() { 
-   const pages = [...new Array(3)].map((_, i) =>  i + 1);
+function App() {
+   const pages = [...new Array(3)].map((_, i) => i + 1);
 
-   const [searchValue, setSearchValue] = React.useState('');
+   const [searchValue, setSearchValue] = React.useState("");
 
    const [currPage, setCurrPage] = React.useState(1);
-   
+
    return (
       <div className="wrapper">
-         <AppContext.Provider value={{searchValue, setSearchValue, currPage}}>
+         <AppContext.Provider value={{ searchValue, setSearchValue, currPage }}>
             <Header />
             <div className="content">
                <Routes>
@@ -31,7 +31,11 @@ function App() {
             </div>
             <div className="pagination">
                <ul>
-                  {pages.map((el) => <li className={currPage === el ? `current` : ``} onClick={() => setCurrPage(el)} key={el}>{el}</li>)}
+                  {pages.map((el) => (
+                     <li className={currPage === el ? `current` : ``} onClick={() => setCurrPage(el)} key={el}>
+                        {el}
+                     </li>
+                  ))}
                </ul>
             </div>
          </AppContext.Provider>

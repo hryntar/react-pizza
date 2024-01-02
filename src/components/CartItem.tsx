@@ -2,10 +2,11 @@
 // import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItem, addItem, minusItem } from '../redux/slices/cartSlice';
+import { RootState } from "../redux/store";
 
-export default function CartItem({id}) {
+export default function CartItem({id}: {id: number}) {
    const dispatch = useDispatch();
-   const item = useSelector(state => state.cartSlice.items.find(obj => obj.id === id)) 
+   const item = useSelector((state: RootState)=> state.cartSlice.items.find(obj => obj.id === id)) 
 
    return (
       <div className="cart__item">

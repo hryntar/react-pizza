@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface CartType {
+   totalPrice: number,
+   items: any[],
+}
+
+const initialState: CartType = {
    totalPrice: 0,
    items: [],
 }; 
@@ -28,9 +33,9 @@ const cartSlice = createSlice({
          
       },
       removeItem(state, action) { 
-         const findItem = state.items.find(item => item.id === action.payload);
+         const findItem = state.items.find((item: {id: number}) => item.id === action.payload);
          state.totalPrice -= findItem.price;
-         state.items = state.items.filter((obj) => obj.id !== action.payload); 
+         state.items = state.items.filter((obj: {id: number}) => obj.id !== action.payload); 
 
       },
       clearItems(state) {
@@ -47,8 +52,8 @@ const cartSlice = createSlice({
    },
 });
 
-export const selectCart = (state) => state.cartSlice; // селектор для cart
+export const selectCart = (state: {cartSlice: any}) => state.cartSlice; // селектор для cart
 
-export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
+export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions; 
 
 export default cartSlice.reducer;
