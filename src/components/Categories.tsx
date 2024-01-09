@@ -1,6 +1,6 @@
 
 import React, { FC } from "react";
-import axios from "axios";
+import axios from "axios"; 
 
 type Props = {
    activeCategory: number,

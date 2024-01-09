@@ -1,7 +1,7 @@
  import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTagIdx, tagIdxType } from "../redux/slices/filterSlice";
-import { RootState } from "../redux/store";
+import { RootState } from "../redux/store"; 
 
 export const Sort = () => { 
    const [popupOpen, setPopupOpen] = React.useState(false);

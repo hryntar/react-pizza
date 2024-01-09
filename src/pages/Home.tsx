@@ -3,7 +3,7 @@ import { AppContext } from "../App.tsx";
 import { Categories } from "../components/Categories.jsx";
 import ContentLoader from "react-content-loader";
 import { PizzaBlock } from "../components/PizzaBlock.jsx";
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Sort } from "../components/Sort.jsx";
 import { fetchPizzas } from "../redux/slices/pizzasSlice.js";
 import { setActiveCategory } from "../redux/slices/filterSlice.js";
@@ -17,8 +17,7 @@ const Home: FC = () => {
 
    const { searchValue, currPage } = React.useContext(AppContext);
 
-   React.useEffect(() => {
-      
+   React.useEffect(() => { 
       dispatch( 
          fetchPizzas({
             activeCategory,
@@ -28,10 +27,16 @@ const Home: FC = () => {
       );
    }, [activeCategory, tagIdx, currPage, dispatch]);
 
+   const onChangeCategory = useCallback((id: number) => {
+      dispatch(setActiveCategory(id));
+   }, [])
+
+   
+
    return (
       <div className="container">
          <div className="content__top">
-            <Categories setActiveCategory={(id: number) => dispatch(setActiveCategory(id))} activeCategory={activeCategory} />
+            <Categories setActiveCategory={onChangeCategory} activeCategory={activeCategory} />
             <Sort />
          </div>
          <h2 className="content__title">Усі піци</h2>
