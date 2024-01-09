@@ -1,7 +1,5 @@
-import React from "react";
-
-import { Routes, Route } from "react-router-dom";
-
+import React from "react"; 
+import { Routes, Route } from "react-router-dom"; 
 import { Header } from "./components/Header";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
@@ -9,7 +7,15 @@ import FullPizza from "./pages/FullPizza";
 
 import "./scss/app.scss"; 
 
-export const AppContext = React.createContext({});
+interface IAppContext {
+   searchValue: string,
+   setSearchValue: React.Dispatch<React.SetStateAction<string>>,
+   currPage: number
+}
+
+const initialValue = {searchValue: '', setSearchValue: () => {}, currPage: 1};
+
+export const AppContext = React.createContext<IAppContext>(initialValue);
 
 function App() {
    const pages = [...new Array(3)].map((_, i) => i + 1);

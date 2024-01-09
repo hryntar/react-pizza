@@ -1,14 +1,26 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, {FC} from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { addItem } from "../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
+import { RootState, useAppDispatch } from "../redux/store";
+
 const typeNames = ["тонке", "традиційне"]; 
 
-export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
-   const dispatch = useDispatch();
-   const cartItem = useSelector(state => state.cartSlice.items.find(obj => obj.id === id) ); 
+type PizzaBlockProps = {
+   id: number,
+   title: string,
+   price: number,
+   imageUrl: string,
+   types: number[],
+   sizes: number[],
+   count?: number
+}
+
+export const PizzaBlock: FC<PizzaBlockProps> = ({ id, title, price, imageUrl, types, sizes, count = 1}) => {
+   const dispatch = useAppDispatch();
+   const cartItem = useSelector((state: RootState) => state.cartSlice.items.find(obj => obj.id === id) ); 
 
    const [currentSize, setCurrentSize] = React.useState(0);
    const [currentType, setCurrentType] = React.useState(0); 
@@ -21,6 +33,9 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
          imageUrl,
          type: typeNames[currentType],
          size: sizes[currentSize],
+         count,
+         types,
+         sizes
       };
 
       dispatch(addItem(item));
@@ -32,7 +47,7 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
          <h4 className="pizza-block__title">{title}</h4>
          <div className="pizza-block__selector">
             <ul>
-               {types.map((val) => (
+               {types?.map((val) => (
                   <li
                      key={val}
                      onClick={() => setCurrentType(val)}
@@ -43,7 +58,7 @@ export const PizzaBlock = ({ id, title, price, imageUrl, types, sizes }) => {
                ))}
             </ul>
             <ul>
-               {sizes.map((val, idx) => (
+               {sizes?.map((val, idx) => (
                   <li onClick={() => setCurrentSize(idx)} className={currentSize === idx ? "active" : ""} key={idx}>
                      {val}
                   </li>

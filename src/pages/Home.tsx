@@ -1,25 +1,25 @@
-/* eslint-disable react/prop-types */ 
-import { useDispatch, useSelector } from "react-redux"; 
+import { useSelector } from "react-redux"; 
 import { AppContext } from "../App.tsx";
 import { Categories } from "../components/Categories.jsx";
 import ContentLoader from "react-content-loader";
 import { PizzaBlock } from "../components/PizzaBlock.jsx";
-import React from "react";
+import React, { FC } from "react";
 import { Sort } from "../components/Sort.jsx";
 import { fetchPizzas } from "../redux/slices/pizzasSlice.js";
 import { setActiveCategory } from "../redux/slices/filterSlice.js";
-import { RootState } from "../redux/store.ts";
+import { RootState, useAppDispatch } from "../redux/store.ts"; 
 
-export default function Home() {
+const Home: FC = () => {
    const activeCategory = useSelector((state: RootState) => state.filterSlice.activeCategory);
    const { pizzas, status } = useSelector((state: RootState) => state.pizzasSlice);
    const tagIdx = useSelector((state: RootState) => state.filterSlice.tagIdx);
-   const dispatch = useDispatch();
+   const dispatch = useAppDispatch();
 
    const { searchValue, currPage } = React.useContext(AppContext);
 
    React.useEffect(() => {
-      dispatch(
+      
+      dispatch( 
          fetchPizzas({
             activeCategory,
             tagIdx,
@@ -37,7 +37,7 @@ export default function Home() {
          <h2 className="content__title">Усі піци</h2>
          <div className="content__items">
             {status === "loading"
-               ? [...new Array(8)].map((i, idx) => (
+               ? [...new Array(8)].map((_i, idx) => (
                     <ContentLoader
                        key={idx}
                        speed={2}
@@ -61,3 +61,5 @@ export default function Home() {
       </div>
    );
 }
+
+export default Home;

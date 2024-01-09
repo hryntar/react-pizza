@@ -1,6 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+export type tagIdxType = {
+   name: string,
+   sortProp: string,
+}
+
+interface filterSlice {
+   activeCategory: number,
+   tagIdx: tagIdxType,
+}
+
+const initialState: filterSlice = {
    activeCategory: 0,
    tagIdx: {
       name: "популярності",
@@ -12,10 +22,10 @@ const filterSlice = createSlice({
    name: "filter",
    initialState,
    reducers: {
-      setActiveCategory(state, action) {
+      setActiveCategory(state, action: PayloadAction<number>) {
          state.activeCategory = action.payload;
       },
-      setTagIdx(state, action) {
+      setTagIdx(state, action: PayloadAction<tagIdxType>) {
          state.tagIdx = action.payload;
       },
    },

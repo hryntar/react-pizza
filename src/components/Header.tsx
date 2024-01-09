@@ -1,13 +1,13 @@
-// import React from "react";
-import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 import Search from "./Search/Search";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
+import { CartItemType } from "../redux/slices/cartSlice";
 
 export const Header = () => {
    const { totalPrice, items } = useSelector(selectCart);
 
-   const itemsCount = items.reduce((sum, item) => sum + item.count, 0);
+   const itemsCount = items.reduce((sum: number, item: CartItemType) => sum + item.count, 0);
 
    return (
       <div className="header">

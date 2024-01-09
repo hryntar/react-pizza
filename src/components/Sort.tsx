@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-import React from "react";
+ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTagIdx } from "../redux/slices/filterSlice";
+import { setTagIdx, tagIdxType } from "../redux/slices/filterSlice";
 import { RootState } from "../redux/store";
 
 export const Sort = () => { 
@@ -28,7 +27,7 @@ export const Sort = () => {
    }, [])
 
    
-   function handleTagClick(idx: {}) { 
+   function handleTagClick(idx: tagIdxType) { 
       dispatch(setTagIdx(idx));
       setPopupOpen(false);
    } 
