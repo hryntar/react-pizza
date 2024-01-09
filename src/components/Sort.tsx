@@ -1,9 +1,9 @@
- import React from "react";
+ import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setTagIdx, tagIdxType } from "../redux/slices/filterSlice";
 import { RootState } from "../redux/store"; 
 
-export const Sort = () => { 
+export const Sort = memo(() => { 
    const [popupOpen, setPopupOpen] = React.useState(false);
    const tags = [{name: "популярністю", sortProp: "rating"},{name: "ціною", sortProp: "price"}, {name: "алфавітом", sortProp: "title"}]; 
 
@@ -51,4 +51,4 @@ export const Sort = () => {
          </div>
       </div>
    );
-};
+});

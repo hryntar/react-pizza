@@ -3,8 +3,9 @@ import Search from "./Search/Search";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
 import { CartItemType } from "../redux/slices/cartSlice";
+import { memo } from "react";
 
-export const Header = () => {
+export const Header = memo(() => {
    const { totalPrice, items } = useSelector(selectCart);
 
    const itemsCount = items.reduce((sum: number, item: CartItemType) => sum + item.count, 0);
@@ -53,4 +54,4 @@ export const Header = () => {
          </div>
       </div>
    );
-};
+});

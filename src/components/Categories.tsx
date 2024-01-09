@@ -1,5 +1,5 @@
 
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import axios from "axios"; 
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
    setActiveCategory:  (id: number) => void;
 }
 
-export const Categories: FC<Props> = ({activeCategory, setActiveCategory}) => {
+export const Categories: FC<Props> = memo(({activeCategory, setActiveCategory}) => {
    const [categories, setCategories] = React.useState([]); 
 
    React.useEffect(() => {
@@ -28,4 +28,4 @@ export const Categories: FC<Props> = ({activeCategory, setActiveCategory}) => {
          </ul>
       </div>
    );
-};
+});
