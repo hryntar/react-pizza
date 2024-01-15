@@ -7,16 +7,10 @@ type Props = {
    setActiveCategory:  (id: number) => void;
 }
 
+const categories = ["Усі", "М'ясні", "Вегетаріанські", "Гриль", "Гострі", "Закриті"];
+
 export const Categories: FC<Props> = memo(({activeCategory, setActiveCategory}) => {
-   const [categories, setCategories] = React.useState([]); 
-
-   React.useEffect(() => {
-      axios
-         .get("api/categories")
-         .then((res) => setCategories(res.data))
-         .catch((err) => console.error(err));
-   }, []); 
-
+  
    return (
       <div className="categories">
          <ul>
